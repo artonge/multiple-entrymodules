@@ -1,8 +1,9 @@
+import path from "path";
+import webpack from "webpack";
 import { AngularCompilerPlugin } from "@ngtools/webpack";
-import * as path from "path";
-import * as webpack from "webpack";
 
 export default {
+    mode: 'development',
     entry: {
         app: "./src/main.app.ts",
         login: "./src/main.login.ts",
@@ -31,7 +32,7 @@ export default {
         ),
         new AngularCompilerPlugin({
             tsConfigPath: "./src/tsconfig.json",
-            entryModule: "./src/app.module#AppModule",
+            entryModules: ["./src/app.module#AppModule", "./src/login.module#LoginModule"],
             sourceMap: true
         })
     ],
