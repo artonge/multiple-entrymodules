@@ -6,7 +6,6 @@ export default {
     mode: 'development',
     entry: {
         app: "./src/main.app.ts",
-        login: "./src/main.login.ts",
         polyfills: "./src/polyfills.ts"
     },
     output: {
@@ -18,26 +17,19 @@ export default {
     },
     module: {
         rules: [
-            {
-                test: /\.ts$/,
-                use: ["@ngtools/webpack"]
-            }
+            { test: /\.ts$/, use: ["@ngtools/webpack"] }
         ]
     },
     plugins: [
-        new webpack.ContextReplacementPlugin(
-            /angular(\\|\/)core/,
-            path.resolve("./src"),
-            {}
-        ),
         new AngularCompilerPlugin({
             tsConfigPath: "./src/tsconfig.json",
-            entryModules: ["./src/app.module#AppModule", "./src/login.module#LoginModule"],
+            entryModule: "./src/app.module#AppModule",
             sourceMap: true
         })
     ],
     devtool: "inline-cheap-module-source-map",
     devServer: {
-        contentBase: "./public"
+        contentBase: "./public",
+        historyApiFallback: true,
     }
 };
