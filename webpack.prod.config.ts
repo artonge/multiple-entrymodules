@@ -4,15 +4,16 @@ import webpack from "webpack";
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-    mode: 'development',
+    mode: 'production',
+    devtool: "source-map",
     entry: {
-        polyfills: "./src/polyfills.ts",
-        app: "./src/main.app.ts",
-        login: "./src/main.login.ts"
+        polyfills: "./build/src/polyfills.js",
+        app: `./build/src/main.app.js`,
+        login: `./build/src/main.login.js`
     },
     output: {
         filename: "[name].js",
-        path: path.resolve("public")
+        path: path.resolve(`public`)
     },
     resolve: {
         extensions: [".ts", ".js"]
@@ -20,15 +21,9 @@ export default {
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                loaders: [
-                    {
-                        loader: "awesome-typescript-loader",
-                        options: { configFileName: "src/tsconfig.json" },
-                    },
-                    "angular2-template-loader",
-                ],
-                exclude: /node_modules/,
+                test: /\.js$/,
+                use: ["source-map-loader"],
+                enforce: "pre"
             }
         ]
     },
@@ -45,6 +40,7 @@ export default {
         })
     ],
     optimization: {
+        minimize: false,
         splitChunks: {
             cacheGroups: {
                 commons: {
@@ -61,8 +57,4 @@ export default {
             }
         }
     },
-    devtool: "inline-cheap-module-source-map",
-    devServer: {
-        contentBase: "./public",
-    }
 };
