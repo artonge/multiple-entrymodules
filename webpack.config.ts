@@ -1,6 +1,6 @@
 import path from "path";
 import webpack from "webpack";
-import { AngularCompilerPlugin } from "@ngtools/webpack";
+import { AngularCompilerPlugin } from "@artonge/webpack";
 
 export default {
     mode: 'development',
@@ -20,7 +20,7 @@ export default {
         rules: [
             {
                 test: /\.ts$/,
-                use: ["@ngtools/webpack"]
+                use: ["@artonge/webpack"]
             }
         ]
     },
